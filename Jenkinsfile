@@ -15,7 +15,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                    echo "Skipping Test, no test script found..."
+                    echo "Skipping Test, no test script found!"
                 '''
             }
         }
