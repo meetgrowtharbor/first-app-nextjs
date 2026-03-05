@@ -10,7 +10,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                npm ci
+                    npm ci
                 '''
             }
         }
@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                npm run build
+                    npm run build
                 '''
             }
         }
@@ -26,9 +26,9 @@ pipeline {
         stage('Deploy to Vercel') {
             steps {
                 sh '''
-                npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-                npx vercel build --prod --token=$VERCEL_TOKEN
-                npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+                    npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+                    npx vercel build --prod --token=$VERCEL_TOKEN
+                    npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
                 '''
             }
         }
