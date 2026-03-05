@@ -13,19 +13,25 @@ pipeline {
 
         }
         stage('Test') {
-            sh '''
-                echo "Skipping Test, no test script found..."
-            '''
+            steps {
+                sh '''
+                    echo "Skipping Test, no test script found..."
+                '''
+            }
         }
         stage('Build') {
-            sh '''
-                npm run build
-            '''
+            steps {
+                sh '''
+                    npm run build
+                '''
+            }
         }
         stage('Deploy') {
-            sh '''
-                npx vercel --token $VERCEL_TOKEN --prod --yes
-            '''
+            steps {
+                sh '''
+                    npx vercel --token $VERCEL_TOKEN --prod --yes
+                '''
+            }
         }
     }
 }
