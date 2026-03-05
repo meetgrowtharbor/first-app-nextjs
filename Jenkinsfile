@@ -6,31 +6,29 @@ pipeline {
     }
 
     stages {
-        stage('Install') {
+
+        stage('Install Dependencies') {
             steps {
                 sh '''
-                    npm install
+                npm ci
                 '''
             }
         }
-        stage('Test') {
-            steps {
-                sh '''
-                    echo "Skipping Test, no test script found!"
-                '''
-            }
-        }
+
         stage('Build') {
             steps {
                 sh '''
-                    npm run build
+                npm run build
                 '''
             }
         }
-        stage('Deploy') {
+
+        stage('Deploy to Vercel') {
             steps {
                 sh '''
-                    npx vercel --token $VERCEL_TOKEN --prod --yes
+                npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+                npx vercel build --prod --token=$VERCEL_TOKEN
+                npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
                 '''
             }
         }
