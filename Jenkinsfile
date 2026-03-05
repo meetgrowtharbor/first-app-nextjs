@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    environment {
+        VERCEL_TOKEN = credentials('vercel-token')
+    }
+
+    stages {
+        stage(Install) {
+            sh '''
+                npm install
+            '''
+
+        }
+        stage('Test') {
+            sh '''
+                echo "Skipping Test, no test script found..."
+            '''
+        }
+        stage('Build') {
+            sh '''
+                npm run build
+            '''
+        }
+        stage('Deploy') {
+            sh '''
+                npx vercel --token $VERCEL_TOKEN --prod --yes
+            '''
+        }
+    }
+}
